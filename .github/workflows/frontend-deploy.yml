@@ -1,0 +1,28 @@
+name: Deploy Frontend
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    - name: Build Frontend
+      run: |
+        echo "Building frontend..."
+        # You can replace this with actual build commands (e.g., npm install, npm run build)
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy to Server
+      run: |
+        ssh ubuntu@your-frontend-server-ip "cd /path/to/app && git pull && npm install && pm2 restart all"
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
